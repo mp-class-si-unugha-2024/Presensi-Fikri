@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
 import '../controllers/signup_controller.dart';
 
 class SignupView extends GetView<SignupController> {
-  const SignupView({super.key});
+  const SignupView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
+    final gender = RxString('');
 
     return Scaffold(
       appBar: AppBar(),
@@ -16,37 +16,111 @@ class SignupView extends GetView<SignupController> {
         child: Card(
           child: Form(
             key: formkey,
-            child: Column(
+            child: ListView(
+              padding: EdgeInsets.all(15),
               children: [
-                const Text(
-                  "Presensi",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const SizedBox(height: 15),
-                const Align(
-                  alignment: Alignment.bottomLeft,
+                Center(
                   child: Text(
-                    "Sign in",
+                    "REGISTRASI",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
+                Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Text(
+                    "Masukan data diri dengan benar",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Nama",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "NIM",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Semester",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Prodi",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 15),
+                Obx(
+                  () => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Radio<String>(
+                        value: 'Laki-laki',
+                        groupValue: gender.value,
+                        onChanged: (value) {
+                          gender.value = value!;
+                        },
+                      ),
+                      Icon(Icons.male, color: Colors.blue),
+                      SizedBox(width: 5),
+                      Text("Laki-laki", style: TextStyle(fontSize: 16)),
+                      SizedBox(width: 20),
+                      Radio<String>(
+                        value: 'Perempuan',
+                        groupValue: gender.value,
+                        onChanged: (value) {
+                          gender.value = value!;
+                        },
+                      ),
+                      Icon(Icons.female, color: Colors.pink),
+                      SizedBox(width: 5),
+                      Text("Perempuan", style: TextStyle(fontSize: 16)),
+                    ],
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Alamat PKL",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 15),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: "Nomor WhatsApp",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(height: 15),
                 TextFormField(
                   validator: (value) {
                     if (value!.isEmpty) {
                       return "Email wajib di isi";
                     }
                     if (!GetUtils.isEmail(value)) {
-                      return "Masukan email dengan benar";
+                      return "Masukan email dengan Benar";
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: "Email",
                     border: OutlineInputBorder(),
                   ),
                 ),
-                const SizedBox(height: 15),
+                SizedBox(height: 15),
                 TextFormField(
                   validator: (value) {
                     if (value!.isEmpty) {
@@ -57,7 +131,7 @@ class SignupView extends GetView<SignupController> {
                     }
                     return null;
                   },
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
                     labelText: "Password",
                     border: OutlineInputBorder(),
                   ),
@@ -68,17 +142,17 @@ class SignupView extends GetView<SignupController> {
                       value: true,
                       onChanged: (value) {},
                     ),
-                    const Text("Show password"),
+                    Text("Show password"),
                   ],
                 ),
                 Row(
                   children: [
-                    const Text("Lupa kata sandi"),
+                    Text("Lupa kata sandi"),
                     ElevatedButton(
                       onPressed: () {
                         if (formkey.currentState!.validate()) {}
                       },
-                      child: const Text("Masuk"),
+                      child: Text("Masuk"),
                     ),
                   ],
                 ),
