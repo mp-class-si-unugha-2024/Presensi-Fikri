@@ -8,7 +8,14 @@ class SignupView extends GetView<SignupController> {
   @override
   Widget build(BuildContext context) {
     var formkey = GlobalKey<FormState>();
-    final gender = RxString('');
+    var isObscure = true.obs;
+    var selectedProdi = ''.obs;
+
+    final List<String> prodiList = [
+      'Teknik Informatika (TI)',
+      'Sistem Informasi (SI)',
+      'Matematika (MAT)',
+    ];
 
     return Scaffold(
       appBar: AppBar(),
@@ -16,147 +23,122 @@ class SignupView extends GetView<SignupController> {
         child: Card(
           child: Form(
             key: formkey,
-            child: ListView(
-              padding: EdgeInsets.all(15),
-              children: [
-                Center(
-                  child: Text(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
                     "REGISTRASI",
                     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center,
                   ),
-                ),
-                SizedBox(height: 15),
-                Align(
-                  alignment: Alignment.bottomLeft,
-                  child: Text(
-                    "Masukan data diri dengan benar",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Nama",
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Nama",
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "NIM",
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "NIM",
-                    border: OutlineInputBorder(),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Semester",
+                      border: OutlineInputBorder(),
+                    ),
                   ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Semester",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Prodi",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 15),
-                Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                  SizedBox(height: 15),
+                  Obx(() => DropdownButtonFormField<String>(
+                        decoration: InputDecoration(
+                          labelText: "Pilih Prodi",
+                          border: OutlineInputBorder(),
+                        ),
+                        value: selectedProdi.value.isEmpty
+                            ? null
+                            : selectedProdi.value,
+                        onChanged: (String? newValue) {
+                          if (newValue != null) {
+                            selectedProdi.value = newValue;
+                          }
+                        },
+                        items: prodiList
+                            .map<DropdownMenuItem<String>>((String value) {
+                          return DropdownMenuItem<String>(
+                            value: value,
+                            child: Text(value),
+                          );
+                        }).toList(),
+                      )),
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Radio<String>(
-                        value: 'Laki-laki',
-                        groupValue: gender.value,
-                        onChanged: (value) {
-                          gender.value = value!;
-                        },
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.male),
+                        label: Text('Laki-laki'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue,
+                        ),
+                        onPressed: () {},
                       ),
-                      Icon(Icons.male, color: Colors.blue),
-                      SizedBox(width: 5),
-                      Text("Laki-laki", style: TextStyle(fontSize: 16)),
-                      SizedBox(width: 20),
-                      Radio<String>(
-                        value: 'Perempuan',
-                        groupValue: gender.value,
-                        onChanged: (value) {
-                          gender.value = value!;
-                        },
+                      ElevatedButton.icon(
+                        icon: Icon(Icons.female),
+                        label: Text('Perempuan'),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blue.shade50,
+                        ),
+                        onPressed: () {},
                       ),
-                      Icon(Icons.female, color: Colors.pink),
-                      SizedBox(width: 5),
-                      Text("Perempuan", style: TextStyle(fontSize: 16)),
                     ],
                   ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Alamat PKL",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: "Nomor WhatsApp",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Email wajib di isi";
-                    }
-                    if (!GetUtils.isEmail(value)) {
-                      return "Masukan email dengan Benar";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Email",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                SizedBox(height: 15),
-                TextFormField(
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return "Password wajib di isi";
-                    }
-                    if (value.length < 6) {
-                      return "Password harus memiliki minimal 6 karakter";
-                    }
-                    return null;
-                  },
-                  decoration: InputDecoration(
-                    labelText: "Password",
-                    border: OutlineInputBorder(),
-                  ),
-                ),
-                Row(
-                  children: [
-                    Checkbox(
-                      value: true,
-                      onChanged: (value) {},
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Alamat PKL",
+                      border: OutlineInputBorder(),
                     ),
-                    Text("Show password"),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Text("Lupa kata sandi"),
-                    ElevatedButton(
-                      onPressed: () {
-                        if (formkey.currentState!.validate()) {}
-                      },
-                      child: Text("Masuk"),
+                  ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Nomor WhatsApp",
+                      border: OutlineInputBorder(),
                     ),
-                  ],
-                ),
-              ],
+                  ),
+                  SizedBox(height: 15),
+                  TextFormField(
+                    decoration: InputDecoration(
+                      labelText: "Email",
+                      border: OutlineInputBorder(),
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  Obx(() => TextFormField(
+                        obscureText: isObscure.value,
+                        decoration: InputDecoration(
+                          labelText: "Password",
+                          border: OutlineInputBorder(),
+                          suffixIcon: IconButton(
+                            icon: Icon(
+                              isObscure.value
+                                  ? Icons.visibility
+                                  : Icons.visibility_off,
+                            ),
+                            onPressed: () {
+                              isObscure.value = !isObscure.value;
+                            },
+                          ),
+                        ),
+                      )),
+                ],
+              ),
             ),
           ),
         ),
