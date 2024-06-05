@@ -1,10 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,8 @@ class HomeView extends GetView<HomeController> {
                       CircleAvatar(
                         child: Image.asset("assets/foto/profile.jpg"),
                       ),
-                      SizedBox(width: 15),
-                      Column(
+                      const SizedBox(width: 15),
+                      const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text("Selamat datang"),
@@ -35,9 +35,9 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       color: Colors.blue.shade800,
                       borderRadius: BorderRadius.circular(15),
@@ -45,22 +45,22 @@ class HomeView extends GetView<HomeController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("Sistem Informasi"),
-                        Text(
+                        const Text("Sistem Informasi"),
+                        const Text(
                           "212231007",
                           style: TextStyle(
                               fontSize: 19, fontWeight: FontWeight.bold),
                         ),
-                        Text(
+                        const Text(
                             "Universitas Nahdlatul Ulama Al - Ghazali Cilacap"),
-                        SizedBox(height: 20),
+                        const SizedBox(height: 20),
                         Container(
-                          padding: EdgeInsets.all(15),
+                          padding: const EdgeInsets.all(15),
                           decoration: BoxDecoration(
                             color: Colors.blue.shade200,
                             borderRadius: BorderRadius.circular(15),
                           ),
-                          child: Row(
+                          child: const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Column(
@@ -99,17 +99,17 @@ class HomeView extends GetView<HomeController> {
                       ],
                     ),
                   ),
-                  SizedBox(height: 15),
+                  const SizedBox(height: 15),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Container(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade50,
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Column(
+                        child: const Column(
                           children: [
                             Text("Jarak dari Kantor"),
                             Text(
@@ -121,12 +121,12 @@ class HomeView extends GetView<HomeController> {
                         ),
                       ),
                       Container(
-                        padding: EdgeInsets.all(15),
+                        padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
                           color: Colors.blue.shade50,
                           borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Column(
+                        child: const Column(
                           children: [
                             Text("Zona Presensi"),
                             Text(
@@ -139,30 +139,30 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 25),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Riwayat Presensi",
                         style: TextStyle(
                             fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       TextButton(
                         onPressed: () {},
-                        child: Text("Lihat semua..."),
+                        child: const Text("Lihat semua..."),
                       ),
                     ],
                   ),
-                  SizedBox(height: 20),
+                  const SizedBox(height: 20),
                   Container(
-                    padding: EdgeInsets.all(15),
+                    padding: const EdgeInsets.all(15),
                     decoration: BoxDecoration(
                       border: Border.all(color: Colors.grey),
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Row(
+                    child: const Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Column(
